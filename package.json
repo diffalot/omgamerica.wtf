@@ -1,0 +1,35 @@
+{
+  "name": "mississippi.wtf",
+  "version": "0.0.0",
+  "description": "a twilio connection to your Mississippi senator",
+  "main": "index.js",
+  "scripts": {
+    "test": "standard",
+    "dev": "nodemon & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.diff.mx:diffalot/contact-ms-senator.git"
+  },
+  "keywords": [
+    "twilio",
+    "sunlight"
+  ],
+  "author": "Andrew Davis <andrew@diff.mx>",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.3.4",
+    "hapi": "^13.2.2",
+    "inert": "^3.2.0",
+    "is-phone": "^2.0.0",
+    "node-geocoder": "^3.9.1",
+    "openstates": "0.0.1",
+    "twilio": "^2.9.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "nodemon": "^1.9.1",
+    "standard": "^6.0.8"
+  }
+}

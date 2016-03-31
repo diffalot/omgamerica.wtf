@@ -1,0 +1,17 @@
+html,
+body,
+* {
+  margin: 0;
+  padding: 0;
+  margin-top: 1em;
+  text-align: center;
+  font-family: sans-serif;
+}
+input {
+  max-width: 80%;
+  width: 100%;
+}
+img {
+  max-width: 30%;
+  max-height: 30%;
+}

@@ -1,0 +1,23 @@
+<form ng-submit="Lookup.lookup()">
+  <input ng-model="Lookup.address" placeholder="1234 Shady Lane, Jackson, MS  39202" required name="address" id="address" type="text">
+  <input type="submit" value="lookup">
+  <p ng-if="Lookup.representatives.message">{{Lookup.representatives.message}}</p>
+  <ul>
+    <li ng-repeat="rep in Lookup.representatives" ng-if="Lookup.representatives.length">
+      <hr />
+      <h1>{{rep.firstName}} {{rep.lastName}} - {{rep.role}}</h1>
+      <h2>{{rep.party}} - District {{rep.district}}</h2>
+      <img ng-if="rep.photo" alt="{{rep.firstName}} {{rep.lastName}}" src="{{rep.photo}}" />
+      <h3 ng-if="Lookup.sponsored(rep.id)">Sponsored HB 1523</h3>
+      <p ng-if="Lookup.votedYes(rep.id)">Voted for HB 1523</p>
+      <p ng-if="Lookup.votedNo(rep.id)">Voted against HB 1523</p>
+      <p ng-if="Lookup.votedOther(rep.id)">Did not vote on HB 1523</p>
+      <div ng-if="rep.asshole">
+        <p>{{rep.firstName}} {{rep.lastName}} does not provide a telephone number for their constituents.</p>
+      </div>
+      <div ng-repeat="number in rep.numbers">
+        <a href="tel:{{number.number}}">{{number.context}}: {{number.number}}</a>
+      </div>
+    </li>
+  </ul>
+</form>
