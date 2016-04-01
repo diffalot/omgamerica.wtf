@@ -9,7 +9,7 @@ angular.module('ContactApp', ['ngRoute'])
     controllerAs: 'Lookup'
   })
 })
-.controller('LookupController', function (LookupService) {
+.controller('LookupController', function (LookupService, CallService) {
   var self = this
   LookupService.loadStats()
   .then(function (stats) {
@@ -58,6 +58,17 @@ angular.module('ContactApp', ['ngRoute'])
     }
     return found
   }
+  self.call = function () {
+    var reps = []
+    for (var i = 0; i < self.representatives.length; ++i) {
+      reps.push(self.representatives[i].id)
+    }
+    var options = {
+      reps: reps,
+      phone: self.phone
+    }
+    return CallService.call(options)
+  }
 })
 .service('LookupService', function ($http) {
   var self = this
@@ -75,6 +86,20 @@ angular.module('ContactApp', ['ngRoute'])
     })
     .success(function (data) {
       return data
+    })
+  }
+})
+.service('CallService', function ($http) {
+  var self = this
+  self.call = function (options) {
+    console.log('calling', options)
+    return $http({
+      method: 'POST',
+      url: '/call',
+      data: options
+    })
+    .success(function (data) {
+      console.log('call initiated', data)
     })
   }
 })
