@@ -1,6 +1,6 @@
 {
   "name": "mississippi.wtf",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a twilio connection to your Mississippi senator",
   "main": "index.js",
   "scripts": {
