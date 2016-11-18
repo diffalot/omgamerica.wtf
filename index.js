@@ -36,6 +36,12 @@ var findRepsForAddress = require('./lib/find-reps')({
 })
 
 server.route({
+  config: {
+    cors: {
+      origin: ['*'],
+      credentials: true
+    }
+  },
   method: 'POST',
   path: '/lookup',
   handler: function (req, reply) {
