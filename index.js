@@ -3,7 +3,12 @@
 var Hapi = require('hapi')
 
 var server = new Hapi.Server()
-server.connection({port: process.env.PORT || 3000})
+server.connection({
+  port: process.env.PORT || 3000,
+  routes: {
+    cors: true
+  }
+})
 
 var billStats
 var getBillStats = require('./lib/bill-votes')({
@@ -36,12 +41,6 @@ var findRepsForAddress = require('./lib/find-reps')({
 })
 
 server.route({
-  config: {
-    cors: {
-      origin: ['*'],
-      credentials: true
-    }
-  },
   method: 'POST',
   path: '/lookup',
   handler: function (req, reply) {
