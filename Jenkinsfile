@@ -69,7 +69,7 @@ node('jenkins-minion') {
           gitlabCommitStatus("docker deploy") {
             stage("docker deploy") {
 
-              sh "kubectl set image deployment/ms-wtf wos-api=541790730179.dkr.ecr.us-east-1.amazonaws.com/ms-wtf:${env.BUILD_TAG} --namespace=omgamerica"
+              sh "kubectl set image deployment/ms-wtf ms-wtf=541790730179.dkr.ecr.us-east-1.amazonaws.com/ms-wtf:${env.BUILD_TAG} --namespace=omgamerica"
               sh "kubectl rollout status deployment/ms-wtf --namespace=omgamerica"
 
             }
