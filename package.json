@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "bluebird": "^3.3.4",
+    "dotenv": "^2.0.0",
     "hapi": "^13.2.2",
     "inert": "^3.2.0",
     "is-phone": "^2.0.0",
@@ -30,6 +31,7 @@
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",
+    "js-yaml": "^3.7.0",
     "nodemon": "^1.9.1",
     "standard": "^6.0.8"
   }

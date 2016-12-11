@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: ms-wtf
+  namespace: omgamerica
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        run: ms-wtf
+    spec:
+      containers:
+      - name: ms-wtf
+        image: 541790730179.dkr.ecr.us-east-1.amazonaws.com/ms-wtf
+        ports:
+        - name: http
+          containerPort: 80
+        env:
+        - name: PORT
+          value: "80"
+        - name: SUNLIGHT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: sunlightKey
+        - name: TWILIO_SID
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: twilioSid
+        - name: TWILIO_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: twilioToken
+        - name: BILL_STATE
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: billState
+        - name: BILL_YEAR
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: billYear
+        - name: BILL_QUERY
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: billQuery
+        - name: STATE_NAME
+          valueFrom:
+            secretKeyRef:
+              name: ms-wtf-secrets
+              key: stateName
