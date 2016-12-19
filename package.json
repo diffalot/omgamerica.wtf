@@ -4,7 +4,7 @@
   "description": "a twilio connection to your Mississippi senator",
   "main": "index.js",
   "scripts": {
-    "test": "npm run test:lint && npm run test:tape",
+    "test": "npm run test:lint && npm run test:spec",
     "test:lint": "eslint **/*.js",
     "test:spec": "tape index.spec.js | tap-spec",
     "dev": "npm run dev:server & npm run dev:spec",
