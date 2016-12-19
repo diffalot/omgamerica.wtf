@@ -5,7 +5,7 @@ module.exports = {
   twilioSid: process.env.TWILIO_SID,
   twilioToken: process.env.TWILIO_TOKEN,
   bill: {
-    state: process.env.BILL_STATE ,
+    state: process.env.BILL_STATE,
     year: process.env.BILL_YEAR,
     query: process.env.BILL_QUERY
   },
