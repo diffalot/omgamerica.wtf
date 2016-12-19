@@ -43,11 +43,17 @@ node('jenkins-minion') {
 
       gitlabCommitStatus("npm install") {
         stage('npm install') {
-          env.NODE_ENV = "production"
+          env.NODE_ENV = "development"
 
-            sh 'node -v'
-            sh 'npm prune'
             sh 'npm install'
+        }
+      }
+
+      gitlabCommitStatus("npm test") {
+        stage('npm test') {
+          env.NODE_ENV = "development"
+
+            sh 'npm test'
         }
       }
 
