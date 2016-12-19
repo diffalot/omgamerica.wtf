@@ -4,8 +4,12 @@
   "description": "a twilio connection to your Mississippi senator",
   "main": "index.js",
   "scripts": {
-    "test": "standard",
-    "dev": "nodemon & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
+    "test": "npm run test:lint && npm run test:tape",
+    "test:lint": "standard",
+    "test:spec": "tape index.spec.js | tap-spec",
+    "dev": "npm run dev:server & npm run dev:spec",
+    "dev:server": "nodemon & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
+    "dev:spec": "tape-watch index.spec.js | tap-spec",
     "start": "node index.js"
   },
   "repository": {
@@ -33,6 +37,9 @@
     "browser-sync": "^2.11.2",
     "js-yaml": "^3.7.0",
     "nodemon": "^1.9.1",
-    "standard": "^6.0.8"
+    "standard": "^6.0.8",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3",
+    "tape-watch": "^2.2.4"
   }
 }
