@@ -14,7 +14,7 @@ server.connection({
 
 var billStats
 var getBillStats = require('./lib/bill-votes')({
-  sunlightKey: process.env.SUNLIGHT_KEY || require('./settings').sunlightKey
+  sunlightKey: require('./settings').sunlightKey
 })
 
 function statsLoop () {
@@ -39,7 +39,7 @@ server.route({
 })
 
 var findRepsForAddress = require('./lib/find-reps')({
-  sunlightKey: process.env.SUNLIGHT_KEY || require('./settings').sunlightKey
+  sunlightKey: require('./settings').sunlightKey
 })
 
 server.route({
@@ -61,8 +61,8 @@ server.route({
 })
 
 var callWithTwilio = require('./lib/call-with-twilio').call({
-  twilioSid: process.env.TWILIO_SID || require('./settings').twilioSid,
-  twilioToken: process.env.TWILIO_TOKEN || require('./settings').twilioToken
+  twilioSid: require('./settings').twilioSid,
+  twilioToken: require('./settings').twilioToken
 })
 
 server.route({
@@ -84,8 +84,8 @@ server.route({
 })
 
 var retreiveScript = require('./lib/call-with-twilio').retreiveScript({
-  twilioSid: process.env.TWILIO_SID || require('./settings').twilioSid,
-  twilioToken: process.env.TWILIO_TOKEN || require('./settings').twilioToken
+  twilioSid: require('./settings').twilioSid,
+  twilioToken: require('./settings').twilioToken
 })
 
 server.route({
