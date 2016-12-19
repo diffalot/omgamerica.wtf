@@ -8,7 +8,7 @@
     "test:lint": "standard",
     "test:spec": "tape index.spec.js | tap-spec",
     "dev": "npm run dev:server & npm run dev:spec",
-    "dev:server": "nodemon & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
+    "dev:server": "nodemon --ignore '*.spec.js' & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
     "dev:spec": "tape-watch index.spec.js | tap-spec",
     "start": "node index.js"
   },
