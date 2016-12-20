@@ -6,10 +6,10 @@
   "scripts": {
     "test": "npm run test:lint && npm run test:spec",
     "test:lint": "eslint **/*.js",
-    "test:spec": "tape index.spec.js | tap-spec",
+    "test:spec": "tape routes.spec.js | tap-spec",
     "dev": "npm run dev:server & npm run dev:spec",
     "dev:server": "nodemon --ignore '*.spec.js' & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
-    "dev:spec": "tape-watch index.spec.js | tap-spec",
+    "dev:spec": "tape-watch routes.spec.js | tap-spec",
     "start": "node index.js"
   },
   "repository": {

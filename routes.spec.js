@@ -1,6 +1,6 @@
 const tape = require('tape')
 
-const server = require('./index')
+const server = require('./routes')
 
 tape('can search for representatives', function (t) {
   let request = {
@@ -11,8 +11,8 @@ tape('can search for representatives', function (t) {
   server.inject(request, function (response) {
     t.equal(response.statusCode, 200, 'received 200')
     t.equal(JSON.parse(response.payload).length, 7, 'received 7 representatives')
-    server.stop()
     t.end()
+    process.exit()
   })
 })
 
