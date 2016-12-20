@@ -7,7 +7,7 @@ variables.
 
 ```
 npm install
-npm run dev   # watches for file changes restarts server and runs tape tests
+npm run dev   # watches for file changes, restarts server and runs tape tests
 ```
 
 ## Testing
