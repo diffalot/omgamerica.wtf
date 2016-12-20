@@ -2,6 +2,8 @@
 
 var Hapi = require('hapi')
 
+var settings = require('./settings')
+
 var server = new Hapi.Server()
 server.connection({
   port: process.env.PORT || 3000,
@@ -14,14 +16,13 @@ server.connection({
 
 var billStats
 var getBillStats = require('./lib/bill-votes')({
-  sunlightKey: require('./settings').sunlightKey
+  sunlightKey: settings.sunlightKey
 })
 
 function statsLoop () {
   return getBillStats()
   .then(function (stats) {
     billStats = stats
-    console.log(stats)
   })
   .then(function () {
     setTimeout(statsLoop, 15 * 60 * 1000)
@@ -39,21 +40,18 @@ server.route({
 })
 
 var findRepsForAddress = require('./lib/find-reps')({
-  sunlightKey: require('./settings').sunlightKey
+  sunlightKey: settings.sunlightKey
 })
 
 server.route({
   method: 'POST',
   path: '/lookup',
   handler: function (req, reply) {
-    console.log(req.payload)
     findRepsForAddress(req.payload.address)
     .then(function (reps) {
-      console.log('REPS FOUND', reps)
       reply(reps)
     })
     .catch(function (error) {
-      console.log('error:', error.message)
       reply(error)
       throw new Error(error)
     })
@@ -61,15 +59,14 @@ server.route({
 })
 
 var callWithTwilio = require('./lib/call-with-twilio').call({
-  twilioSid: require('./settings').twilioSid,
-  twilioToken: require('./settings').twilioToken
+  twilioSid: settings.twilioSid,
+  twilioToken: settings.twilioToken
 })
 
 server.route({
   method: 'POST',
   path: '/call',
   handler: function (req, reply) {
-    console.log(req.payload)
     callWithTwilio(req.payload.number)
     .then(function (reps) {
       console.log('CALLED', reps)
@@ -84,8 +81,8 @@ server.route({
 })
 
 var retreiveScript = require('./lib/call-with-twilio').retreiveScript({
-  twilioSid: require('./settings').twilioSid,
-  twilioToken: require('./settings').twilioToken
+  twilioSid: settings.twilioSid,
+  twilioToken: settings.twilioToken
 })
 
 server.route({
@@ -119,3 +116,5 @@ server.route({
 })
 
 server.start()
+
+module.exports = server
