@@ -9,7 +9,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
+copies of the Software, and to permit persons to whom the Software dotspacemacs-additional-packagesis
 furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in
@@ -30,71 +30,71 @@ node('jenkins-minion') {
 
   currentBuild.result = "SUCCESS"
 
-    print "Build Is Starting for ${env.BUILD_TAG}"
+  print "Build Is Starting for ${env.BUILD_TAG}"
 
-    try {
+  try {
 
-      gitlabCommitStatus("git checkout") {
-        stage('git checkout') {
+    gitlabCommitStatus("git checkout") {
+      stage('git checkout') {
 
-          checkout scm
-        }
+        checkout scm
       }
-
-      gitlabCommitStatus("npm install") {
-        stage('npm install') {
-          env.NODE_ENV = "development"
-
-            sh 'npm install'
-        }
-      }
-
-      gitlabCommitStatus("npm test") {
-        stage('npm test') {
-          env.NODE_ENV = "development"
-
-            sh 'npm test'
-        }
-      }
-
-      gitlabCommitStatus("docker build") {
-        stage('docker build') {
-
-          sh 'npm prune --production'
-
-          sh '$(aws ecr get-login --region=us-east-1)'
-
-          docker.withRegistry("https://541790730179.dkr.ecr.us-east-1.amazonaws.com") {
-            docker.build("ms-wtf:${env.BUILD_TAG}").push()
-          }
-        }
-      }
-
-      switch (env.BRANCH_NAME) {
-        case 'master':
-          gitlabCommitStatus("docker deploy") {
-            stage("docker deploy") {
-
-              sh "kubectl set image deployment/ms-wtf ms-wtf=541790730179.dkr.ecr.us-east-1.amazonaws.com/ms-wtf:${env.BUILD_TAG} --namespace=omgamerica"
-              sh "kubectl rollout status deployment/ms-wtf --namespace=omgamerica"
-
-            }
-          }
-      }
-
     }
+
+    gitlabCommitStatus("npm install") {
+      stage('npm install') {
+        env.NODE_ENV = "development"
+
+        sh 'npm install'
+      }
+    }
+
+    gitlabCommitStatus("npm test") {
+      stage('npm test') {
+        env.NODE_ENV = "development"
+
+        sh 'npm test'
+      }
+    }
+
+    gitlabCommitStatus("docker build") {
+      stage('docker build') {
+
+        sh 'npm prune --production'
+
+        sh '$(aws ecr get-login --region=us-east-1)'
+
+        docker.withRegistry("https://541790730179.dkr.ecr.us-east-1.amazonaws.com") {
+          docker.build("ms-wtf:${env.BUILD_TAG}").push()
+        }
+      }
+    }
+
+    switch (env.BRANCH_NAME) {
+    case 'master':
+    gitlabCommitStatus("docker deploy") {
+      stage("docker deploy") {
+
+        sh "kubectl set image deployment/ms-wtf ms-wtf=541790730179.dkr.ecr.us-east-1.amazonaws.com/ms-wtf:${env.BUILD_TAG} --namespace=omgamerica"
+        sh "kubectl rollout status deployment/ms-wtf --namespace=omgamerica"
+
+      }
+    }
+    }
+
+  }
 
   catch (err) {
 
     currentBuild.result = "FAILURE"
 
-      mail body: "project build error is here: ${env.BUILD_URL}" ,
-           from: 'xxxx@yyyy.com',
-           replyTo: 'yyyy@yyyy.com',
-           subject: 'project build failed',
-           to: 'zzzz@yyyyy.com'
+    mail body: "project build error is here: ${env.BUILD_URL}" ,
+               from: 'xxxx@yyyy.com',
+               replyTo: 'yyyy@yyyy.com',
+               subject: 'project build failed',
+               to: 'zzzz@yyyyy.com'
 
-             throw err
+    throw err
   }
 
 }
