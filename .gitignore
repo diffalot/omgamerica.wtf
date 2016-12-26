@@ -1,3 +1,4 @@
 node_modules
+npm-debug.log
 .env
 k8s/ms-wtf-secrets.yml

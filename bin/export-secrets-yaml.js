@@ -19,7 +19,7 @@ const secrets = {
     billState: new Buffer(settings.bill.state).toString('base64'),
     billYear: new Buffer(settings.bill.year).toString('base64'),
     billQuery: new Buffer(settings.bill.query).toString('base64'),
-    stateName: new Buffer(settings.stateName).toString('base64'),
+    stateName: new Buffer(settings.stateName).toString('base64')
   }
 }
 
