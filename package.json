@@ -7,7 +7,10 @@
     "test": "npm run test:lint && npm run test:spec",
     "test:lint": "eslint **/*.js",
     "test:spec": "tape routes.spec.js | tap-spec",
-    "dev": "npm run dev:server & npm run dev:spec",
+    "static": "mkdir -p dist && cp src/index.html dist",
+    "build": "npm run static && npm run build:frontend",
+    "build:frontend": "browserify src/index.js -t [ babelify --presets [ es2015 ] ] > dist/app.js",
+    "dev": "npm run static & npm run dev:server & npm run dev:spec & npm run dev:frontend",
     "dev:frontend": "watchify src/index.js -t [ babelify --presets [ es2015 ] ] -o dist/app.js",
     "dev:server": "nodemon --ignore '*.spec.js' & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
     "dev:spec": "tape-watch routes.spec.js | tap-spec",
@@ -47,6 +50,7 @@
     "tap-spec": "^4.1.1",
     "tape": "^4.6.3",
     "tape-watch": "^2.2.4",
+    "uglifyjs": "^2.4.10",
     "watchify": "^3.8.0"
   },
   "eslintConfig": {
