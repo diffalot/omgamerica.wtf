@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run test:lint && npm run test:spec",
-    "test:lint": "eslint **/*.js",
+    "test:lint": "eslint --ignore-pattern 'dist' **/*.js",
     "test:spec": "tape routes.spec.js | tap-spec",
     "static": "mkdir -p dist && cp src/index.html dist",
     "build": "npm run static && npm run build:frontend",
