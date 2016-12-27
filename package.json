@@ -9,10 +9,10 @@
     "test:spec": "tape routes.spec.js | tap-spec",
     "static": "mkdir -p dist && cp src/index.html dist",
     "build": "npm run static && npm run build:frontend",
-    "build:frontend": "browserify src/index.js -t [ babelify --presets [ es2015 ] --plugins [ inferno ] ] > dist/app.js",
+    "build:frontend": "browserify src/index.js -t [ babelify --presets [ es2015 ] --plugins [ inferno ] ] | uglifyjs > dist/app.js",
     "dev": "npm run static & npm run dev:server & npm run dev:spec & npm run dev:frontend",
-    "dev:frontend": "watchify src/index.js -t [ babelify --presets [ es2015 ] --plugins [ inferno ] ] -o dist/app.js",
-    "dev:server": "nodemon --ignore '*.spec.js' & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'public/**/*.*'",
+    "dev:frontend": "watchify src/index.js --debug -t [ babelify --presets [ es2015 ] --plugins [ inferno ] ] -o dist/app.js",
+    "dev:server": "nodemon --ignore '*.spec.js' & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'dist/**/*.*'",
     "dev:spec": "tape-watch routes.spec.js | tap-spec",
     "start": "node index.js"
   },
@@ -38,8 +38,7 @@
     "node-uuid": "^1.4.7",
     "openstates": "0.0.1",
     "redux": "^3.6.0",
-    "redux-logger": "^2.7.4",
-    "redux-saga": "^0.14.0"
+    "redux-logger": "^2.7.4"
   },
   "devDependencies": {
     "babel-plugin-inferno": "^1.3.0-beta17",

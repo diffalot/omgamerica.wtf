@@ -3,7 +3,6 @@ import { Provider         } from 'inferno-redux'
 import { createStore,
          combineReducers,
          applyMiddleware  } from 'redux'
-import createSagaMiddleware from 'redux-saga'
 import createLogger         from 'redux-logger'
 
 import reducers             from './reducers'
@@ -13,20 +12,13 @@ let logger = createLogger({
   predicate: (getState, action) => action.type !== 'CHANGE_FORM'
 })
 
-let sagaMiddleware = createSagaMiddleware()
-
 const reducer = combineReducers(Object.assign({}, reducers, {}))
 
 const store = createStore(reducer,
   applyMiddleware(
-    sagaMiddleware,
     logger
   )
 )
-
-import runSagas from './sagas'
-
-runSagas(sagaMiddleware)
 
 import App from './containers/App'
 
