@@ -57,6 +57,14 @@ node('jenkins-minion') {
       }
     }
 
+    gitlabCommitStatus("npm run build") {
+      stage('npm run build') {
+        env.NODE_ENV = "development"
+
+        sh 'npm run build'
+      }
+    }
+
     gitlabCommitStatus("docker build") {
       stage('docker build') {
 
