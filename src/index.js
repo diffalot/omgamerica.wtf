@@ -26,6 +26,6 @@ Inferno.render(
   <Provider store={store}>
     <App />
   </Provider>
-)
+, document.getElementById('app'))
 
 console.log('javascript running')
