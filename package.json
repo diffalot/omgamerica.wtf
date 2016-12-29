@@ -2,7 +2,7 @@
   "name": "mississippi.wtf",
   "version": "0.0.2",
   "description": "search for your state level representatives",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "npm run test:lint && npm run test:spec",
     "test:lint": "eslint --ignore-pattern 'dist' **/*.js",
@@ -14,7 +14,7 @@
     "dev:frontend": "watchify src/index.js --debug -t [ babelify --presets [ es2015 ] --plugins [ inferno ] ] -o dist/app.js",
     "dev:server": "nodemon --ignore '*.spec.js' & browser-sync start --no-ghost-mode --proxy localhost:3000 --port 9000 --files 'dist/**/*.*'",
     "dev:spec": "tape-watch routes.spec.js | tap-spec",
-    "start": "node index.js"
+    "start": "node server/index.js"
   },
   "repository": {
     "type": "git",
