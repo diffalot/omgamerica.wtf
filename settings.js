@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({verbose:false})
 
 module.exports = {
   sunlightKey: process.env.SUNLIGHT_KEY,
